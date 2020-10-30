@@ -8,8 +8,8 @@ export default class Renderer {
 		// setting the canvas dimensions
 		this.canvas = document.querySelector("canvas");
 		this.ctx = this.canvas.getContext("2d");
-		this.canvas.width = this.cols * this.scale;
-		this.canvas.height = this.rows * this.scale;
+		this.canvas.width = this.cols * this.scale - this.scale;
+		this.canvas.height = this.rows * this.scale - this.scale;
 		// array to represent the display
 		this.display = new Array(this.cols * this.rows);
 	}
@@ -52,8 +52,8 @@ export default class Renderer {
 
 	render() {
 		// clear the canvas
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+		this.ctx.fillStyle = "#212121";
+		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 		for (let i = 0; i < this.cols * this.rows; i++) {
 			// based on the display array's index predict the position of x and y reflected onto the canvas
 			let x = (i % this.cols) * this.scale;
@@ -62,16 +62,10 @@ export default class Renderer {
 			// if this.display[i] == 1, draw a pixel
 			if (this.display[i]) {
 				// Set the pixel color to black
-				this.ctx.fillStyle = "#000";
+				this.ctx.fillStyle = "#fff";
 				// draw a pixel at position (x, y) with a width and height of scale
 				this.ctx.fillRect(x, y, this.scale, this.scale);
 			}
 		}
-	}
-
-	test() {
-		this.setPixel(1, 1);
-		this.setPixel(24, 24);
-		this.render();
 	}
 }
